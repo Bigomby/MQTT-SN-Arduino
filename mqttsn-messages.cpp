@@ -234,20 +234,18 @@ void MQTTSN::pingresp_handler() {
 
 extern void MQTTSN_publish_handler(const msg_publish *msg);
 void MQTTSN::publish_handler(const msg_publish *msg) {
-	if (msg->flags & FLAG_QOS_1) {
-		return_code_t ret = REJECTED_INVALID_TOPIC_ID;
-		const uint16_t topic_id = bswap(msg->topic_id);
+	return_code_t ret = REJECTED_INVALID_TOPIC_ID;
+	const uint16_t topic_id = bswap(msg->topic_id);
 
-		for (uint8_t i = 0; i < topic_count; ++i) {
-			if (topic_table[i].id == topic_id) {
-				ret = ACCEPTED;
-				MQTTSN_publish_handler(msg);
-				break;
-			}
+	for (uint8_t i = 0; i < topic_count; ++i) {
+		if (topic_table[i].id == topic_id) {
+			ret = ACCEPTED;
+			MQTTSN_publish_handler(msg);
+			break;
 		}
-
-		puback(msg->topic_id, msg->message_id, ret);
 	}
+
+	puback(msg->topic_id, msg->message_id, ret);
 }
 
 void MQTTSN::register_handler(const msg_register *msg) {
