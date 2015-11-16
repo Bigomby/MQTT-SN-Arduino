@@ -159,6 +159,7 @@ void MQTTSN::dispatch() {
 	}
 
 	waiting_for_response = false;
+	memset(response_message, 0, len);
 }
 
 void MQTTSN::send_message() {
