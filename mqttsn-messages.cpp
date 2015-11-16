@@ -159,7 +159,7 @@ void MQTTSN::dispatch() {
 	}
 
 	waiting_for_response = false;
-	memset(response_message, 0, len);
+	memset(response_message, 0, MAX_BUFFER_SIZE);
 }
 
 void MQTTSN::send_message() {
