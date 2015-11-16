@@ -49,11 +49,6 @@ public:
 	bool register_topic(const char *name);
 	void publish(const uint8_t flags, const uint16_t topic_id, const void *data,
 	             const uint8_t data_len);
-#ifdef USE_QOS2
-	void pubrec();
-	void pubrel();
-	void pubcomp();
-#endif
 	void subscribe_by_name(const uint8_t flags, const char *topic_name);
 	void subscribe_by_id(const uint8_t flags, const uint16_t topic_id);
 	void unsubscribe_by_name(const uint8_t flags, const char *topic_name);
@@ -72,11 +67,6 @@ protected:
 	virtual void publish_handler(const msg_publish *msg);
 	virtual void register_handler(const msg_register *msg);
 	virtual void puback_handler(const msg_puback *msg);
-#ifdef USE_QOS2
-	virtual void pubrec_handler(const msg_pubqos2 *msg);
-	virtual void pubrel_handler(const msg_pubqos2 *msg);
-	virtual void pubcomp_handler(const msg_pubqos2 *msg);
-#endif
 	virtual void suback_handler(const msg_suback *msg);
 	virtual void unsuback_handler(const msg_unsuback *msg);
 	virtual void pingreq_handler(const msg_pingreq *msg);

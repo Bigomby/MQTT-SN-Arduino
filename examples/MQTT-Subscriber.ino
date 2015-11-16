@@ -28,8 +28,8 @@ void loop() {
 	}
 
 	u16TopicID = mqttsn.find_topic_id(TOPIC, &index);
-	Serial.println(u16TopicID, HEX);
 	if (u16TopicID == 0xffff) {
+		mqttsn.register_topic(TOPIC);
 		mqttsn.subscribe_by_name(0, TOPIC);
 		return;
 	}
